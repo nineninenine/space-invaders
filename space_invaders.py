@@ -1,14 +1,20 @@
 import sys
 import pygame
 
+from settings import Settings
+
+
 def run_game():
 	#init the game and create a screen object
 	pygame.init()
-	screen = pygame.display.set_mode((800, 600))
+
+	#create a settings object
+	ai_settings = Settings()
+
+	screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Space Invaders")
 
-	#set the background color
-	bg_color = (62, 90, 201)
+
 
 
 	# start the main loop for the game
@@ -21,8 +27,8 @@ def run_game():
 				sys.exit()
 
 
-		#redraw screen
-		screen.fill(bg_color)
+		#redraw screen each pass thru the loop
+		screen.fill(ai_settings.bg_color)
 
 		#make the most recently drawn screen visible
 		#erase the old screen so only the latest screen is visible
