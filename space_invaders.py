@@ -16,7 +16,7 @@ def run_game():
 	pygame.display.set_caption("Space Invaders")
 
 	#create a ship object. comes before while loop so
-	#we dont make a new ship object 
+	#we dont make a new ship object   
 	ship = Ship(screen)
 
 
