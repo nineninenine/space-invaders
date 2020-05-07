@@ -16,10 +16,8 @@ def run_game():
 	pygame.display.set_caption("Space Invaders")
 
 	#create a ship object. comes before while loop so
-	#we dont make a new ship object 
+	#we dont make a new ship object each time thru the loop.
 	ship = Ship(screen)
-
-
 
 
 	# start the main loop for the game
@@ -28,11 +26,10 @@ def run_game():
 		#watch for keyboard and mouse events.
 		#this is an event loop
 		gf.check_events()
-		
+
+		#set the background color, repaint screen, draw ship on screen
 		gf.update_screen(ai_settings, screen, ship)
 
-
-	
 
 	#init and start the main loop
 run_game()
