@@ -1,13 +1,23 @@
 import sys
 import pygame
 
-def check_events():
+def check_events(ship):
 	"""respond to keypresses and mouuse events"""
 	#watch for keyboard and mouse events.
 	#this is an event loop
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
+
+		#if someone presses a key.
+		#if the event.type attribute is pygame.KEYDOWN that means someone pressed a button.
+		elif event.type == pygame.KEYDOWN:
+			
+			#if the event.key attribute is a right button (pygame.K_RIGHT), move the ship right
+			if event.key == pygame.K_RIGHT:
+				ship.rect.centerx += 1
+
+
 
 
 def update_screen(ai_settings, screen, ship):
