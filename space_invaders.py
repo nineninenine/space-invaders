@@ -22,6 +22,7 @@ def run_game():
 	ship = Ship(screen)
 
 
+	#test
 
 	# start the main loop for the game
 	while True:
