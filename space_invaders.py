@@ -1,7 +1,8 @@
-import sys
 import pygame
 
 from settings import Settings
+from ship import Ship
+import game_functions as gf
 
 
 def run_game():
@@ -14,6 +15,10 @@ def run_game():
 	screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Space Invaders")
 
+	#create a ship object. comes before while loop so
+	#we dont make a new ship object 
+	ship = Ship(screen)
+
 
 
 
@@ -22,20 +27,12 @@ def run_game():
 
 		#watch for keyboard and mouse events.
 		#this is an event loop
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				sys.exit()
+		gf.check_events()
+		
+		gf.update_screen(ai_settings, screen, ship)
 
 
-		#redraw screen each pass thru the loop
-		screen.fill(ai_settings.bg_color)
-
-		#make the most recently drawn screen visible
-		#erase the old screen so only the latest screen is visible
-		#when we move around in the game or enemies move around
-		#flip will update the screen to show new positions of elements
-		#and hide old positions
-		pygame.display.flip()
+	
 
 	#init and start the main loop
 run_game()
