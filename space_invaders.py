@@ -26,7 +26,7 @@ def run_game():
 		#this is an event loop
 		gf.check_events(ship)
 
-		#check to see if the user is moving the ship
+		#update the X position of the shjip
 		ship.update()
 		
 		#set the background color, repaint screen, draw ship on screen

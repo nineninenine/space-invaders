@@ -23,20 +23,27 @@ class Ship():
 
 		#start each new ship at the bottom center of the screen.
 		#by getting the center and botton of the screen rect and
-		#passing them to the ship rect, making them the same
+		#passing them to the ships center rect, making them the same
 		self.rect.centerx = self.screen_rect.centerx
 		self.rect.bottom = self.screen_rect.bottom
 
-		#movement flag
+		#movement flags
 		self.moving_right = False
+		self.moving_left = False
 
 	def update(self):
-		"""update the ships position based on the movement flag"""
+		"""update the ships position based on the left or right movement flag"""
+		#update the center rect attribute to track the X position of the ship
+		#use 2 if statement instead of elif so that both left and right flags
+		#can be turned on when the player holds both buttons. this causes the
+		#ship not to move when both left and right and held down together
 		if self.moving_right == True:
 			self.rect.centerx += 1
+		if self.moving_left == True:
+			self.rect.centerx -= 1
 
 
 	def blitme(self):
 		"""draw the ship at its current location"""
 		#draw the ship to the screen by the postion specified by rect
-		self.screen.blit(self.image, self.rect)
+		self.screen.blit(self.image, self.rect)	
