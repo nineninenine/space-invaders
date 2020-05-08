@@ -9,13 +9,22 @@ def check_events(ship):
 		if event.type == pygame.QUIT:
 			sys.exit()
 
-		#if someone presses a key.
+		#if someone presses a key aka
 		#if the event.type attribute is pygame.KEYDOWN that means someone pressed a button.
 		elif event.type == pygame.KEYDOWN:
 			
-			#if the event.key attribute is a right button (pygame.K_RIGHT), move the ship right
+			#if the event.key attribute is a right arrow key(pygame.K_RIGHT), move the ship right
+			#by ticking moving_right flag to true. the ship moves right as long as
+			#the right arrow key is held down.
 			if event.key == pygame.K_RIGHT:
-				ship.rect.centerx += 1
+				ship.moving_right = True
+		
+		#when a key is released, check to see if its the right arrow key.
+		#if it is, stop the ship moving right by ticking th moving_right
+		#flag to false
+		elif event.type == pygame.KEYUP:
+			if event.key == pygame.K_RIGHT:
+				ship.moving_right = False
 
 
 
