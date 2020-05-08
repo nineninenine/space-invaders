@@ -4,7 +4,6 @@ from settings import Settings
 from ship import Ship
 import game_functions as gf
 
-#test
 
 def run_game():
 	#init the game and create a screen object
@@ -27,6 +26,9 @@ def run_game():
 		#this is an event loop
 		gf.check_events(ship)
 
+		#check to see if the user is moving the ship
+		ship.update()
+		
 		#set the background color, repaint screen, draw ship on screen
 		gf.update_screen(ai_settings, screen, ship)
 
