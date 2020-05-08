@@ -44,10 +44,12 @@ class Ship():
 		#use 2 if statement instead of elif so that both left and right flags
 		#can be turned on when the player holds both buttons. this causes the
 		#ship not to move when both left and right and held down together
-		if self.moving_right == True:
+		
+		#dont move left or right past the end of the screen
+		if ( self.moving_right == True ) and ( self.rect.right < self.screen_rect.right ):
 			#update the center attribute to accurately store the decimal
 			self.center += self.ai_settings.ship_speed_factor
-		if self.moving_left == True:
+		if ( self.moving_left == True ) and ( self.rect.left > self.screen_rect.left ):
 			#update the center attribute to accurately store the decimal
 			self.center -= self.ai_settings.ship_speed_factor
 
