@@ -17,7 +17,7 @@ def run_game():
 
 	#create a ship object. comes before while loop so
 	#we dont make a new ship object each time thru the loop.
-	ship = Ship(screen)
+	ship = Ship(ai_settings, screen)
 
 	# start the main loop for the game
 	while True:
