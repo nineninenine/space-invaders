@@ -1,6 +1,32 @@
 import sys
 import pygame
 
+def check_keydown_events(event, ship):
+	"""respond to key presses"""
+	#if the event.key attribute is a right arrow key(pygame.K_RIGHT), move the ship right
+	#by ticking moving_right flag to true. the ship moves right as long as
+	#the right arrow key is held down.
+	if event.key == pygame.K_RIGHT:
+		ship.moving_right = True
+
+	#same for the left button	
+	elif event.key == pygame.K_LEFT:
+		ship.moving_left = True
+
+		
+def check_keyup_events(event, ship):
+	"""respond to key releases"""
+	#when a key is released, check to see if its the right arrow key.
+	#if it is, stop the ship moving right by ticking th moving_right
+	#flag to false
+	if event.key == pygame.K_RIGHT:
+		ship.moving_right = False
+
+	#same for the left button	
+	elif event.key == pygame.K_LEFT:
+		ship.moving_left = False
+
+
 def check_events(ship):
 	"""respond to keypresses and mouuse events"""
 	#watch for keyboard and mouse events.
@@ -8,29 +34,16 @@ def check_events(ship):
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
-	
+		
 		#if someone presses a key aka 
 		#if the event.type attribute is pygame.KEYDOWN that means someone pressed a button.
 		elif event.type == pygame.KEYDOWN:
-			
-			#if the event.key attribute is a right arrow key(pygame.K_RIGHT), move the ship right
-			#by ticking moving_right flag to true. the ship moves right as long as
-			#the right arrow key is held down.
-			if event.key == pygame.K_RIGHT:
-				ship.moving_right = True
-			elif event.key == pygame.K_LEFT:
-				ship.moving_left = True
-		
-		#when a key is released, check to see if its the right arrow key.
-		#if it is, stop the ship moving right by ticking th moving_right
-		#flag to false
+			check_keydown_events(event, ship)
+
+		#when someone releases a key aka
+		#if the event.type attribute is pygame.KEYUP that means someone released a button.
 		elif event.type == pygame.KEYUP:
-			if event.key == pygame.K_RIGHT:
-				ship.moving_right = False
-			if event.key == pygame.K_LEFT:
-				ship.moving_left = False
-
-
+			check_keyup_events(event, ship)
 
 
 def update_screen(ai_settings, screen, ship):
