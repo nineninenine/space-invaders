@@ -17,7 +17,11 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
 
 	#create a new bullet and add it to the bullets group
 	elif event.key == pygame.K_SPACE:
+		#Bullet is the class we wrote
 		new_bullet = Bullet(ai_settings, screen, ship)
+		#bullets (note thhe plural) is a sprite group object from pygame
+		# .add is a function from the sprite object and it adds our bullet
+		# obj to the sprite group obj. 
 		bullets.add(new_bullet)
 		
 

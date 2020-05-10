@@ -8,7 +8,7 @@ class Bullet(Sprite):
 		super().__init__()
 		self.screen = screen
 
-		#create a bullet rect at (0, 0) and set the correct position
+		#init bullet rect at (0, 0) and set the correct position.
 		#we're drawing it from scratch. we init the rects top left corner to 0,0
 		#after init, we update the bullets centerx to be the same as the ships centerx,
 		#and the bullets top to the sjhips top to make it look like the bullet
@@ -26,6 +26,7 @@ class Bullet(Sprite):
 
 	def update(self):
 		"""move the bullet up the screen"""
+		#this function is called automatically by the pygame.sprite group object
 
 		#update the y value of the bullet
 		#the bullet travels up so we subtract y (pygame inits the upper left corner
