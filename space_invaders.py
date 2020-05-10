@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
@@ -19,18 +20,25 @@ def run_game():
 	#we dont make a new ship object each time thru the loop.
 	ship = Ship(ai_settings, screen)
 
+	#make a group obj to store bullets in
+	bullets = Group()
+
 	# start the main loop for the game
 	while True:
 
 		#watch for keyboard and mouse events.
 		#this is an event loop
-		gf.check_events(ship)
+		gf.check_events(ai_settings, screen, ship, bullets)
 
 		#update the X position of the shjip
 		ship.update()
+
+		#automatically calls bullet.update() in the class we created
+		#  for each bullet we place in the group bullets
+		bullets.update()
 		
 		#set the background color, repaint screen, draw ship on screen
-		gf.update_screen(ai_settings, screen, ship)
+		gf.update_screen(ai_settings, screen, ship, bullets)
 
 
 	#init and start the main loop
