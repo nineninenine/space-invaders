@@ -24,21 +24,21 @@ class Bullet(Sprite):
 		self.color = ai_settings.bullet_color
 		self.speed_factor = ai_settings.bullet_speed_factor
 
-		def update(self):
-			"""move the bullet up the screen"""
+	def update(self):
+		"""move the bullet up the screen"""
 
-			#update the y value of the bullet
-			#the bullet travels up so we subtract y (pygame inits the upper left corner
-			# as 0,0 and the bottom right as positive integers for maxX, maxY 
-			# maxX and maxY are whtever size of the screen you config'd) so upward
-			#movement means we subtract. this will be in the main loop so it will 
-			#run a shitload of tiems and move the bullet up. no x coord is needed
-			#cuz the bullet travels in a straight line
-			self.y -= self.speed_factor
+		#update the y value of the bullet
+		#the bullet travels up so we subtract y (pygame inits the upper left corner
+		#of the window as 0,0 and the bottom right as positive integers for maxX, maxY. 
+		# maxX and maxY are whtever size of the screen you config'd) so upward
+		#movement means we subtract. this will be in the main loop so it will 
+		#run a shitload of tiems and move the bullet up. no x coord is needed
+		#cuz the bullet travels in a straight line
+		self.y -= self.speed_factor
 
-			#update the rect position
-			self.rect.y = self.y
+		#update the rect position
+		self.rect.y = self.y
 
-		def draw_bullet(self):
-			"""draw bullet on the screen"""
-			pygame.draw.rect(self.screen, self.color, self.rect)
+	def draw_bullet(self):
+		"""draw bullet on the screen"""
+		pygame.draw.rect(self.screen, self.color, self.rect)
