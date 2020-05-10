@@ -81,7 +81,7 @@ def update_bullets(bullets):
 	#print("bullets on screen: "+ str(len(bullets)))
 
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, alien, bullets):
 	"""update images on the screen and flip to the new screen"""
 
 	#redraw the screen with each pass thru the loop
@@ -93,6 +93,9 @@ def update_screen(ai_settings, screen, ship, bullets):
 	
 	#draw the ship on the screen
 	ship.blitme()
+
+	#draw an alien on the screen
+	alien.blitme()
 
 	#make the most recently drawn screen visible
 	#erase the old screen so only the latest screen is visible
