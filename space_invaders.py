@@ -33,13 +33,12 @@ def run_game():
 		#update the X position of the shjip
 		ship.update()
 
-		#automatically calls bullet.update() from the class we created
-		#for each bullet we place in the group bullets
-		bullets.update()
-		
+		#update bullet positions and remove old bullets
+		gf.update_bullets(bullets)
+
 		#set the background color, repaint screen, draw ship on screen, bullets too
 		gf.update_screen(ai_settings, screen, ship, bullets)
 
 
-	#init and start the main loop
+#init and start the main loop
 run_game()
