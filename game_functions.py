@@ -1,7 +1,9 @@
 import sys
 import pygame
 
-def check_keydown_events(event, ship):
+from bullet import Bullet
+
+def check_keydown_events(event, ai_settings, screen, ship, bullets):
 	"""respond to key presses"""
 	#if the event.key attribute is a right arrow key(pygame.K_RIGHT), move the ship right
 	#by ticking moving_right flag to true. the ship moves right as long as
@@ -12,6 +14,12 @@ def check_keydown_events(event, ship):
 	#same for the left button	
 	elif event.key == pygame.K_LEFT:
 		ship.moving_left = True
+
+	#create a new bullet and add it to the bullets group
+	elif event.key == pygame.K_SPACE:
+		new_bullet = Bullet(ai_settings, screen, ship)
+		bullets.add(new_bullet)
+		
 
 		
 def check_keyup_events(event, ship):
@@ -27,7 +35,7 @@ def check_keyup_events(event, ship):
 		ship.moving_left = False
 
 
-def check_events(ship):
+def check_events(ai_settings, screen, ship, bullets):
 	"""respond to keypresses and mouuse events"""
 	#watch for keyboard and mouse events.
 	#this is an event loop
@@ -38,19 +46,26 @@ def check_events(ship):
 		#if someone presses a key aka 
 		#if the event.type attribute is pygame.KEYDOWN that means someone pressed a button.
 		elif event.type == pygame.KEYDOWN:
-			check_keydown_events(event, ship)
+			check_keydown_events(event, ai_settings, screen, ship, bullets)
 
 		#when someone releases a key aka
 		#if the event.type attribute is pygame.KEYUP that means someone released a button.
 		elif event.type == pygame.KEYUP:
 			check_keyup_events(event, ship)
 
+		
 
-def update_screen(ai_settings, screen, ship):
+
+
+def update_screen(ai_settings, screen, ship, bullets):
 	"""update images on the screen and flip to the new screen"""
 
 	#redraw the screen with each pass thru the loop
 	screen.fill(ai_settings.bg_color)
+
+	#redraw all bullets behind ship and aliens
+	for bullet in bullets.sprites():
+		bullet.draw_bullet()
 	
 	#draw the ship on the screen
 	ship.blitme()
