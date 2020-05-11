@@ -2,6 +2,7 @@ import sys
 import pygame
 
 from bullet import Bullet
+from alien import Alien
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
 	"""respond to key presses"""
@@ -22,16 +23,6 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
 	#quit if the user presses the q key
 	elif event.key == pygame.K_q:
 		sys.exit()	
-
-def fire_bullets(ai_settings, screen, ship, bullets):
-	"""fire a bullet if we havent reached max amt of bullets on screen"""
-	if len(bullets) < ai_settings.bullets_allowed:
-		#Bullet is the class we wrote
-		new_bullet = Bullet(ai_settings, screen, ship)
-		#bullets (note thhe plural) is a sprite group object from pygame
-		# .add is a function from the sprite object and it adds our bullet
-		# obj to the sprite group obj. 
-		bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
@@ -66,6 +57,17 @@ def check_events(ai_settings, screen, ship, bullets):
 			check_keyup_events(event, ship)
 
 
+def fire_bullets(ai_settings, screen, ship, bullets):
+	"""fire a bullet if we havent reached max amt of bullets on screen"""
+	if len(bullets) < ai_settings.bullets_allowed:
+		#Bullet is the class we wrote
+		new_bullet = Bullet(ai_settings, screen, ship)
+		#bullets (note thhe plural) is a sprite group object from pygame
+		# .add is a function from the sprite object and it adds our bullet
+		# obj to the sprite group obj. 
+		bullets.add(new_bullet)			
+
+
 def update_bullets(bullets):
 	""""update positions of bullets and remove old bullets"""
 
@@ -81,7 +83,7 @@ def update_bullets(bullets):
 	#print("bullets on screen: "+ str(len(bullets)))
 
 
-def update_screen(ai_settings, screen, ship, alien, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets):
 	"""update images on the screen and flip to the new screen"""
 
 	#redraw the screen with each pass thru the loop
@@ -94,8 +96,9 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
 	#draw the ship on the screen
 	ship.blitme()
 
-	#draw an alien on the screen
-	alien.blitme()
+	#aliens is a group obj that holds instances of our alien class.
+	#the draw function draws each element in the group at the position defined in its rect
+	aliens.draw(screen)
 
 	#make the most recently drawn screen visible
 	#erase the old screen so only the latest screen is visible
@@ -103,3 +106,44 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
 	#flip will update the screen to show new positions of elements
 	#and hide old positions
 	pygame.display.flip()
+
+
+def get_number_aliens_x(ai_settings, alien_width):
+	"""figure out the number of aliens that fit in a row"""
+	#we want the aliens to be spaced out one alien wide. 
+	#we calculate 2x an alien for the alien and one alien-width spot to its right.
+	available_space_x = ai_settings.screen_width - (2 * alien_width)
+	#cast as int to get a whole number of aliens. int() truncates the decimal.
+	number_aliens_x = int(available_space_x / (2 * alien_width))
+	return number_aliens_x
+
+
+def create_alien(ai_settings, screen, aliens, alien_number):
+	"""create an alien and put it in a row"""
+	#we create one alien and get its rect. 
+	alien = Alien(ai_settings, screen)
+	alien_width = alien.rect.width
+
+	#we want a margin around the screen thats one alien width on both sides.
+	#calculate the x-coord of the aliens so they line up side by side. 
+	#this function is called in a loop and alien_number is the
+	#iterator and is used to place the aliens out side by side.
+	alien.x = alien_width + (2 * alien_width * alien_number)
+	#assign the x-coord to the alien rect
+	alien.rect.x = alien.x
+	#add the alien to the group obj
+	aliens.add(alien)
+
+
+
+def create_fleet(ai_settings, screen, aliens):
+	"""create a full fleet of aliens"""
+	#we create one alien to get its rect for the number_aliens_x function.
+	#we don actually use this alien in the fleet
+	alien = Alien(ai_settings, screen)
+	number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)	
+	#create first row of aliens.
+	for alien_number in range(number_aliens_x):
+		#creat an alien and put it in the row
+		create_alien(ai_settings, screen, aliens, alien_number)
+		
