@@ -4,7 +4,7 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
-from alien import Alien
+
 
 
 def run_game():
@@ -22,11 +22,14 @@ def run_game():
 	#we dont make a new ship object each time thru the loop.
 	ship = Ship(ai_settings, screen)
 
-	#make an alien
-	alien = Alien(ai_settings, screen)
-
 	#make a group obj to store bullets in
 	bullets = Group()
+
+	#make a group obj to store aliens
+	aliens = Group()
+
+	#create a fleet of aliens
+	gf.create_fleet(ai_settings, screen, aliens)
 
 	# start the main loop for the game
 	while True:
@@ -42,7 +45,7 @@ def run_game():
 		gf.update_bullets(bullets)
 
 		#set the background color, repaint screen, draw ship on screen, bullets too
-		gf.update_screen(ai_settings, screen, ship, alien, bullets)
+		gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 #init and start the main loop
