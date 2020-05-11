@@ -117,8 +117,19 @@ def get_number_aliens_x(ai_settings, alien_width):
 	number_aliens_x = int(available_space_x / (2 * alien_width))
 	return number_aliens_x
 
+def get_number_rows(ai_settings, ship_height, alien_height):
+	"""determine the nubmer of rows of aliens fit on the screen"""
+	#to figure out the amount of vertical space we want to substract 
+	# the alien height from the top, the ship height from the bottom,
+	# and 2x the alien height from the bottom
+	available_space_y = ai_settings.screen_height - (3 * alien_height) - ship_height
 
-def create_alien(ai_settings, screen, aliens, alien_number):
+	#we want one alien height space between rows, so 2x the height
+	number_rows = int(available_space_y / (2 * alien_height))
+	return number_rows
+
+
+def create_alien(ai_settings, screen, aliens, alien_number, row_number):
 	"""create an alien and put it in a row"""
 	#we create one alien and get its rect. 
 	alien = Alien(ai_settings, screen)
@@ -131,19 +142,31 @@ def create_alien(ai_settings, screen, aliens, alien_number):
 	alien.x = alien_width + (2 * alien_width * alien_number)
 	#assign the x-coord to the alien rect
 	alien.rect.x = alien.x
+	#similar as the x-coord, assign a y-coord
+	alien.rect.y = alien.rect.height + (2 * alien.rect.height * row_number)
 	#add the alien to the group obj
 	aliens.add(alien)
 
 
-
-def create_fleet(ai_settings, screen, aliens):
+def create_fleet(ai_settings, screen, ship, aliens):
 	"""create a full fleet of aliens"""
 	#we create one alien to get its rect for the number_aliens_x function.
 	#we don actually use this alien in the fleet
 	alien = Alien(ai_settings, screen)
-	number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)	
+	number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
+	number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect.height)
+
 	#create first row of aliens.
-	for alien_number in range(number_aliens_x):
-		#creat an alien and put it in the row
-		create_alien(ai_settings, screen, aliens, alien_number)
+	for row_number in range(number_rows):
+		for alien_number in range(number_aliens_x):
+			#creat an alien and put it in the row
+			create_alien(ai_settings, screen, aliens, alien_number, row_number)
+
+
+def update_aliens(aliens):
+	"""update the position of the alien fleet"""
+	#aliens (plural) is a group obj. not the alien (singular) class we made.
+	#aliens contains instances of the alien obj.
+	#aliens.update() calls the update() function in each instance of the alien class 
+	aliens.update()
 		
