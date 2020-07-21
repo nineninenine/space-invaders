@@ -45,7 +45,7 @@ def run_game():
 		gf.update_bullets(bullets)
 
 		#update the position of the aliens
-		gf.update_aliens(aliens)
+		gf.update_aliens(ai_settings, aliens)
 
 		#set the background color, repaint screen, draw ship on screen, bullets too
 		gf.update_screen(ai_settings, screen, ship, aliens, bullets)
