@@ -170,3 +170,23 @@ def update_aliens(aliens):
 	#aliens.update() calls the update() function in each instance of the alien class 
 	aliens.update()
 		
+def check_fleet_edges(ai_settings, aliens):
+	"""respond if any aliens reach the edge of the screen"""
+	#move the aliens down one row and start moving the other way
+	for alien in aliens.sprites():
+		if alien.check_edges():
+			change_fleet_direction(ai_settings, aliens)
+			break
+
+def change_fleet_direction(ai_settings, aliens):
+	"""drop an entire fleet and change the fleets direction."""
+	for alien in aliens.sprites():
+		alien.rect.y += ai_settings.fleet_drop_speed
+		#change the fleet direction by flpping from positive to neg or vice versa
+	
+	ai_settings.fleet_direction *= -1
+
+def update_aliens(ai_settings, aliens):
+	"""check if the fleet is at the edge of the screen and then update the postion of all aliens in the fleet"""
+	check_fleet_edges(ai_settings, aliens)
+	aliens.update()
