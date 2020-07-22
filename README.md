@@ -1,5 +1,5 @@
 # space-invaders
-a Python3 space invaders game as a covid19 shutdown project that i worked through from https://nostarch.com/pythoncrashcourse2e 
+this is python3 space invaders game as a covid19 shutdown project that i worked through from https://nostarch.com/pythoncrashcourse2e 
 
 I made this on a Mac, which requires homebrew for this to work. Visit https://brew.sh/ for deets, but tl;dr:
 
