@@ -76,6 +76,17 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
 	#for each bullet we place in the group bullets
 	bullets.update()
 
+
+	#remove bullets taht have moved past the top of the screen.
+	for bullet in bullets.copy():
+		if bullet.rect.bottom <= 0:
+			bullets.remove(bullet)
+	#print("bullets on screen: "+ str(len(bullets)))
+
+	check_bullet_alien_collisions(ai_settings, screen, ship, aliens,bullets)
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+	"""remove any bullets and aliens that have collided"""
 	#check for any bullets that have hit aliens
 	#if so, remove the bullet and alien.
 	#the 2 True params remove the bullets and aliens
@@ -84,16 +95,9 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
 
 	#if each alien in the aliens (note plural) group are shotdown, make new alien fleet
 	if len(aliens) == 0:
-
-		#remove all bullets
+		#remove all bullets and make a new fleet
 		bullets.empty()
 		create_fleet(ai_settings, screen, ship, aliens)
-
-	#remove bullets taht have moved past the top of the screen.
-	for bullet in bullets.copy():
-		if bullet.rect.bottom <= 0:
-			bullets.remove(bullet)
-	#print("bullets on screen: "+ str(len(bullets)))
 
 
 
