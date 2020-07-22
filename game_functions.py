@@ -181,12 +181,12 @@ def create_fleet(ai_settings, screen, ship, aliens):
 			create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
 
-def update_aliens(aliens):
-	"""update the position of the alien fleet"""
-	#aliens (plural) is a group obj. not the alien (singular) class we made.
-	#aliens contains instances of the alien obj.
-	#aliens.update() calls the update() function in each instance of the alien class 
-	aliens.update()
+#def update_aliens(aliens):
+#	"""update the position of the alien fleet"""
+#	#aliens (plural) is a group obj. not the alien (singular) class we made.
+#	#aliens contains instances of the alien obj.
+#	#aliens.update() calls the update() function in each instance of the alien class 
+#	aliens.update()
 		
 def check_fleet_edges(ai_settings, aliens):
 	"""respond if any aliens reach the edge of the screen"""
@@ -204,7 +204,16 @@ def change_fleet_direction(ai_settings, aliens):
 	
 	ai_settings.fleet_direction *= -1
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, ship, aliens):
 	"""check if the fleet is at the edge of the screen and then update the postion of all aliens in the fleet"""
+	
 	check_fleet_edges(ai_settings, aliens)
+	#aliens (plural) is a group obj. not the alien (singular) class we made.
+	#aliens contains instances of the alien obj.
+	#aliens.update() calls the update() function in each instance of the alien class 
 	aliens.update()
+
+	#check for alien-ship collisions
+	#takes 2 arguements, a sprite and a group
+	if pygame.sprite.spritecollideany(ship, aliens):
+		print("Ship was hit!!")
