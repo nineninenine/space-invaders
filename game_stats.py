@@ -1,4 +1,4 @@
-class GateStats():
+class GameStats():
     """track stats for space invaders"""
     def __init__(self, ai_settings):
         """init stats"""
