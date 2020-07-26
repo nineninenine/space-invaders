@@ -43,17 +43,18 @@ def run_game():
 		#this is an event loop
 		gf.check_events(ai_settings, screen, ship, bullets)
 
-		#update the X position of the shjip
-		ship.update()
+		if stats.game_active:
+			#update the X position of the shjip
+			ship.update()
 
-		#update bullet positions and remove old bullets
-		gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+			#update bullet positions and remove old bullets
+			gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
 
-		#update the position of the aliens
-		gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+			#update the position of the aliens
+			gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-		#set the background color, repaint screen, draw ship on screen, bullets too
-		gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+			#set the background color, repaint screen, draw ship on screen, bullets too
+			gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 #init and start the main loop
