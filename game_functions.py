@@ -223,22 +223,43 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 		ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 		#print("Ship was hit!!")
 
+	#look for aliens getting to the bottom of the screen
+	check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+	
+
+
 
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 	"""respond when the ship is hit by an alien"""
 	#one less ship
-	stats.ships_left -= 1
+	if stats.ships_left > 0:
+		stats.ships_left -= 1
 
-	#empty out current aliens and bullets group obj (note plurals)
-	aliens.empty()
-	bullets.empty()
+		#empty out current aliens and bullets group obj (note plurals)
+		aliens.empty()
+		bullets.empty()
 
-	#create new fleet of aliens and new ship centered on the screen
-	create_fleet(ai_settings, screen, ship, aliens)
-	ship.center_ship()
+		#create new fleet of aliens and new ship centered on the screen
+		create_fleet(ai_settings, screen, ship, aliens)
+		ship.center_ship()
 
-	#pause so players have a moment before game restarts
-	sleep(0.5)
+		#pause so players have a moment before game restarts
+		sleep(0.5)
+	else:
+		stats.game_active = False
+
+
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+	"""check to see if any aliens ahve reached teh bottom of the screen"""
+	screen_rect = screen.get_rect()
+	for alien in aliens.sprites():
+		if alien.rect.bottom >= screen_rect.bottom:
+			#treat this alient the same as if it had hit a ship
+			#ie reset fleet, bullets, recenter ship
+			ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+			break
+
+
 
 
