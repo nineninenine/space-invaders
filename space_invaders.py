@@ -2,8 +2,10 @@ import pygame
 from pygame.sprite import Group
 
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 import game_functions as gf
+
 
 
 
@@ -17,6 +19,9 @@ def run_game():
 	#create the game window
 	screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Space Invaders")
+	#create gamestats instance to store game stats
+	stats = GameStats(ai_settings)
+
 
 	#create a ship object. comes before while loop so
 	#we dont make a new ship object each time thru the loop.
@@ -45,7 +50,7 @@ def run_game():
 		gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
 
 		#update the position of the aliens
-		gf.update_aliens(ai_settings, ship, aliens)
+		gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
 		#set the background color, repaint screen, draw ship on screen, bullets too
 		gf.update_screen(ai_settings, screen, ship, aliens, bullets)
