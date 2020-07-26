@@ -38,6 +38,7 @@ class Ship():
 		self.moving_right = False
 		self.moving_left = False
 
+
 	def update(self):
 		"""update the ships position based on the left or right movement flag"""
 		#update the center rect attribute to track the X position of the ship
@@ -57,7 +58,12 @@ class Ship():
 		#will only take the int portion and drop the fraction
 		self.rect.centerx = self.center
 
+
 	def blitme(self):
 		"""draw the ship at its current location"""
 		#draw the ship to the screen by the postion specified by rect
 		self.screen.blit(self.image, self.rect)	
+
+	def center_ship(self):
+		"""center ship on screen"""
+		self.center = self.screen_rect.centerx
