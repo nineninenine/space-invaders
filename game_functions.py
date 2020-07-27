@@ -68,7 +68,11 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
 	"""start a new game when the player clicks the play button"""
 	#rect collidepoint method used check if mouseclick overlaps with button rect
-	if play_button.rect.collidepoint(mouse_x, mouse_y):
+	button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+
+	if button_clicked and not stats.game_active:
+		#hide teh mouse cursor dude
+		pygame.mouse.set_visible(False)
 		#reset stats and start game
 		stats.reset_stats()
 		stats.game_active = True
@@ -275,6 +279,8 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 		sleep(0.5)
 	else:
 		stats.game_active = False
+		#bring teh mouse back when player runs out of lives and game is over
+		pygame.mouse.set_visible(True)
 
 
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
