@@ -103,7 +103,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
 
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
 	"""update images on the screen and flip to the new screen"""
 
 	#redraw the screen with each pass thru the loop
@@ -119,6 +119,10 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
 	#aliens is a group obj that holds instances of our alien class.
 	#the draw function draws each element in the group at the position defined in its rect
 	aliens.draw(screen)
+
+	#draw play button if the game is inactive
+	if not stats.game_active:
+		play_button.draw_button()
 
 	#make the most recently drawn screen visible
 	#erase the old screen so only the latest screen is visible
