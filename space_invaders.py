@@ -44,7 +44,7 @@ def run_game():
 
 		#watch for keyboard and mouse events.
 		#this is an event loop
-		gf.check_events(ai_settings, screen, ship, bullets)
+		gf.check_events(ai_settings, screen, stats, play_button, ship, bullets)
 
 		if stats.game_active:
 			#update the X position of the shjip
