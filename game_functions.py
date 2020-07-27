@@ -40,7 +40,7 @@ def check_keyup_events(event, ship):
 		ship.moving_left = False
 
 
-def check_events(ai_settings, screen, stats, play_button, ship, bullets):
+def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets):
 	"""respond to keypresses and mouuse events"""
 	#watch for keyboard and mouse events.
 	#this is an event loop
@@ -62,14 +62,24 @@ def check_events(ai_settings, screen, stats, play_button, ship, bullets):
 			#get the x,y of hte mouse postion at click
 			mouse_x, mouse_y = pygame.mouse.get_pos()
 			#stats argument is passed so method can access game_active attrb
-			check_play_button(stats, play_button, mouse_x, mouse_y)
+			check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
 
 
-def check_play_button(stats, play_button, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
 	"""start a new game when the player clicks the play button"""
 	#rect collidepoint method used check if mouseclick overlaps with button rect
 	if play_button.rect.collidepoint(mouse_x, mouse_y):
+		#reset stats and start game
+		stats.reset_stats()
 		stats.game_active = True
+
+		#empty aliens and bullets group obj
+		aliens.empty
+		bullets.empty
+
+		#create fresh alien fleet and center ship
+		create_fleet(ai_settings, screen, ship, aliens)
+		ship.center_ship()
 
 
 def fire_bullets(ai_settings, screen, ship, bullets):
