@@ -40,7 +40,7 @@ def check_keyup_events(event, ship):
 		ship.moving_left = False
 
 
-def check_events(ai_settings, screen, ship, bullets):
+def check_events(ai_settings, screen, stats, play_button, ship, bullets):
 	"""respond to keypresses and mouuse events"""
 	#watch for keyboard and mouse events.
 	#this is an event loop
@@ -57,6 +57,19 @@ def check_events(ai_settings, screen, ship, bullets):
 		#if the event.type attribute is pygame.KEYUP that means someone released a button.
 		elif event.type == pygame.KEYUP:
 			check_keyup_events(event, ship)
+
+		elif event.type == pygame.MOUSEBUTTONDOWN:
+			#get the x,y of hte mouse postion at click
+			mouse_x, mouse_y = pygame.mouse.get_pos()
+			#stats argument is passed so method can access game_active attrb
+			check_play_button(stats, play_button, mouse_x, mouse_y)
+
+
+def check_play_button(stats, play_button, mouse_x, mouse_y):
+	"""start a new game when the player clicks the play button"""
+	#rect collidepoint method used check if mouseclick overlaps with button rect
+	if play_button.rect.collidepoint(mouse_x, mouse_y):
+		stats.game_active = True
 
 
 def fire_bullets(ai_settings, screen, ship, bullets):
