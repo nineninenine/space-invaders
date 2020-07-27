@@ -71,6 +71,9 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
 	button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
 
 	if button_clicked and not stats.game_active:
+		#reset difficulty when new player starts
+		ai_settings.initialize_dynamic_settings()
+
 		#hide teh mouse cursor dude
 		pygame.mouse.set_visible(False)
 		#reset stats and start game
@@ -124,8 +127,9 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
 
 	#if each alien in the aliens (note plural) group are shotdown, make new alien fleet
 	if len(aliens) == 0:
-		#remove all bullets and make a new fleet
+		#remove all bullets and make a new fleet, increase difficulty
 		bullets.empty()
+		ai_settings.increase_speed()
 		create_fleet(ai_settings, screen, ship, aliens)
 
 

@@ -26,7 +26,7 @@ class Settings():
 		self.fleet_drop_speed = 100
 
 		#how quickly the game speeds up
-		self.speedup_scale = 1.1
+		self.speedup_scale = 1.3
 
 		self.initialize_dynamic_settings()
 
@@ -46,8 +46,8 @@ class Settings():
 
 
 	def increase_speed(self):
-	"""increase speed settings"""
-	self.ship_speed_factor *= self.speedup_scale
-	self.bullet_speed_factor *= self.speedup_scale
-	self.alien_speed_factor *= self.speedup_scale
+		"""increase speed settings (ie increase difficulty)"""
+		self.ship_speed_factor *= self.speedup_scale
+		self.bullet_speed_factor *= self.speedup_scale
+		self.alien_speed_factor *= self.speedup_scale
 
